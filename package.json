@@ -1,0 +1,17 @@
+{
+  "name": "shopping-store-server",
+  "version": "1.0.0",
+  "description": "about shopping-store-server",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "author": "codeshihaoran",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.0",
+    "mysql": "^2.18.1"
+  }
+}
