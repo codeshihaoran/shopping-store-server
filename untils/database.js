@@ -14,11 +14,14 @@ const query = (sql, values) => {
                 console.log('getConnection error:', err)
             } else {
                 connection.query(sql, values, (err, rows) => {
+                    console.log('connection query sql+values', sql, values);
                     if (err) {
                         reject(err)
-                        console.log('connection error:', err);
+                        console.log('connection query error:', err);
                     } else {
                         resolve(rows)
+                        console.log('connection query result', rows);
+
                     }
                     connection.release()
                 })
