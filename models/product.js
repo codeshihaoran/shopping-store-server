@@ -14,12 +14,16 @@ module.exports = {
         let sql = `select * from product limit ${index}, ${pagesize} `
         return await query(sql, categoryID)
     },
-    getCategoryIdbyName: async (categoryName) => {
+    getCategoryIdByName: async (categoryName) => {
         console.log('modelproduct getcategoryID categoryName: ', categoryName);
         let sql = 'select * from `category` where `category_name`= ?'
         const category = await query(sql, [categoryName]);
         console.log("modelproduct getcategoryID category: ", category);
         console.log("modelproduct getcategoryID category category_id: ", category[0].category_id);
         return category[0].category_id
+    },
+    getCategory: async () => {
+        let sql = 'select * from category where category_id > 0 AND category_id < 9'
+        return await query(sql, [])
     }
 }

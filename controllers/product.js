@@ -8,7 +8,7 @@ module.exports = {
             const categoryID = []
             for (let i = 0; i < categoryName.length; i++) {
                 // 根据商品分类名称获取分类id
-                const category_id = await productmodel.getCategoryIdbyName(categoryName[i]);
+                const category_id = await productmodel.getCategoryIdByName(categoryName[i]);
                 categoryID.push(category_id);
             }
             console.log('getHotProducts categoryID :', categoryID);
@@ -25,7 +25,7 @@ module.exports = {
     getPromoProducts: async ctx => {
         try {
             let { categoryName } = ctx.request.body
-            let categoryId = await productmodel.getCategoryIdbyName(categoryName)
+            let categoryId = await productmodel.getCategoryIdByName(categoryName)
             console.log('getPromoProducts categoryId :', categoryId);
             products = await productmodel.getPromoProductsByCategoryId(categoryId)
             ctx.body = {
@@ -41,13 +41,24 @@ module.exports = {
         try {
             let { categoryName, currentPage, pageSize } = ctx.request.body
             let index = (currentPage - 1) * pageSize;
-            let categoryID = productmodel.getCategoryIdbyName(categoryName)
+            let categoryID = productmodel.getCategoryIdByName(categoryName)
             let products = await productmodel.getAllproductsByCategoryId(categoryID, index, pageSize);
             let total = 35
             ctx.body = {
                 code: '001',
                 products,
                 total
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    getProductCategory: async ctx => {
+        try {
+            let category = await productmodel.getCategory()
+            ctx.body = {
+                code: '001',
+                category
             }
         } catch (err) {
             console.log(err);
