@@ -43,9 +43,11 @@ module.exports = {
             let index = (currentPage - 1) * pageSize;
             let categoryID = productmodel.getCategoryIdbyName(categoryName)
             let products = await productmodel.getAllproductsByCategoryId(categoryID, index, pageSize);
+            let total = 35
             ctx.body = {
                 code: '001',
                 products,
+                total
             }
         } catch (err) {
             console.log(err);
