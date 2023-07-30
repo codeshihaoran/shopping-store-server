@@ -25,5 +25,9 @@ module.exports = {
     getCategory: async () => {
         let sql = 'select * from category where category_id > 0 AND category_id < 9'
         return await query(sql, [])
-    }
+    },
+    getProductsBycategoryId: async (categoryID, index, pageSize) => {
+        let sql = `select * from product where category_id= ? limit ${index}, ${pageSize}`
+        return await query(sql, categoryID)
+    },
 }

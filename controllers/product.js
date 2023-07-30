@@ -39,9 +39,8 @@ module.exports = {
     // 获取全部商品
     getAllproduct: async ctx => {
         try {
-            let { categoryName, currentPage, pageSize } = ctx.request.body
+            let { categoryID, currentPage, pageSize } = ctx.request.body
             let index = (currentPage - 1) * pageSize;
-            let categoryID = productmodel.getCategoryIdByName(categoryName)
             let products = await productmodel.getAllproductsByCategoryId(categoryID, index, pageSize);
             let total = 35
             ctx.body = {
@@ -59,6 +58,21 @@ module.exports = {
             ctx.body = {
                 code: '001',
                 category
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    getProducts: async ctx => {
+        try {
+            let { categoryID, currentPage, pageSize } = ctx.request.body
+            let index = (currentPage - 1) * pageSize;
+            let Product = await productmodel.getProductsBycategoryId(categoryID, index, pageSize)
+            let total = (await productmodel.getPromoProductsByCategoryId(categoryID)).length
+            ctx.body = {
+                code: '001',
+                Product,
+                total
             }
         } catch (err) {
             console.log(err);

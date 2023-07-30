@@ -7,4 +7,6 @@ productRouter.post('/product/getHotProduct', productController.getHotProducts)
 productRouter.post('/product/getPromoProduct', productController.getPromoProducts)
 productRouter.post('/product/getAllProduct', productController.getAllproduct)
 productRouter.post('/product/getCategory', productController.getProductCategory)
+productRouter.post('/product/getProductByCategory', productController.getProducts)
+
 module.exports = productRouter
