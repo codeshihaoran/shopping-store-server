@@ -35,5 +35,20 @@ module.exports = {
         } catch (err) {
             console.log('error :', err);
         }
+    },
+    // 获取全部商品
+    getAllproduct: async ctx => {
+        try {
+            let { categoryName, currentPage, pageSize } = ctx.request.body
+            let index = (currentPage - 1) * pageSize;
+            let categoryID = productmodel.getCategoryIdbyName(categoryName)
+            let products = await productmodel.getAllproductsByCategoryId(categoryID, index, pageSize);
+            ctx.body = {
+                code: '001',
+                products,
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 }

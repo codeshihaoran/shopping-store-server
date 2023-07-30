@@ -10,6 +10,10 @@ module.exports = {
         let sql = 'select * from `product` where `category_id`= ?'
         return await query(sql, categoryID)
     },
+    getAllproductsByCategoryId: async (categoryID, index, pagesize) => {
+        let sql = `select * from product limit ${index}, ${pagesize} `
+        return await query(sql, categoryID)
+    },
     getCategoryIdbyName: async (categoryName) => {
         console.log('modelproduct getcategoryID categoryName: ', categoryName);
         let sql = 'select * from `category` where `category_name`= ?'

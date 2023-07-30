@@ -5,4 +5,5 @@ const productController = require('../../controllers/product')
 productRouter.post('/product/getHotProduct', productController.getHotProducts)
 // 推销商品router
 productRouter.post('/product/getPromoProduct', productController.getPromoProducts)
+productRouter.post('/product/getAllProduct', productController.getAllproduct)
 module.exports = productRouter
