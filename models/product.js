@@ -1,4 +1,4 @@
-const query = require('../../untils/database')
+const query = require('../utils/database')
 
 module.exports = {
     getHotProductsByCategoryId: async (categoryID) => {
@@ -17,6 +17,5 @@ module.exports = {
         console.log("modelproduct getcategoryID category: ", category);
         console.log("modelproduct getcategoryID category category_id: ", category[0].category_id);
         return category[0].category_id
-
     }
 }

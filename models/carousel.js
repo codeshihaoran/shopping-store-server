@@ -1,4 +1,4 @@
-const query = require('../../untils/database')
+const query = require('../utils/database')
 module.exports = {
     Carousel: async () => {
         try {

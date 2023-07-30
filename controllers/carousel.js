@@ -1,4 +1,4 @@
-const carouselmodel = require('../models/carouselmodel')
+const carouselmodel = require('../models/carousel')
 module.exports = {
     Carousel: async ctx => {
         try {

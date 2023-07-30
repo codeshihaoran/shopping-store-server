@@ -1,5 +1,5 @@
 
-const productmodel = require('../models/productmodel')
+const productmodel = require('../models/product')
 module.exports = {
     // 获取热门商品
     getHotProducts: async ctx => {

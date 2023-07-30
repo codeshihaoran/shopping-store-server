@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 const productRouter = new Router()
-const productController = require('../../controllers/productController')
+const productController = require('../../controllers/product')
 // 热门商品router
 productRouter.post('/product/getHotProduct', productController.getHotProducts)
 // 推销商品router
