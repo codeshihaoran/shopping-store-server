@@ -8,5 +8,6 @@ productRouter.post('/product/getPromoProduct', productController.getPromoProduct
 productRouter.post('/product/getAllProduct', productController.getAllproduct)
 productRouter.post('/product/getCategory', productController.getProductCategory)
 productRouter.post('/product/getProductByCategory', productController.getProducts)
-
+productRouter.post('/product/getDetails', productController.getProductDetails)
+productRouter.post('/product/getDetailsPicture', productController.getProductDetailsPicture)
 module.exports = productRouter

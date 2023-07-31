@@ -77,5 +77,29 @@ module.exports = {
         } catch (err) {
             console.log(err);
         }
+    },
+    getProductDetails: async ctx => {
+        try {
+            let { productId } = ctx.request.body
+            let Product = await productmodel.getProductDetailsByProductId(productId)
+            ctx.body = {
+                code: '001',
+                Product
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    getProductDetailsPicture: async ctx => {
+        try {
+            let { productId } = ctx.request.body
+            let ProductPicture = await productmodel.getProductDetailPicturesByProductId(productId)
+            ctx.body = {
+                code: '001',
+                ProductPicture
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 }

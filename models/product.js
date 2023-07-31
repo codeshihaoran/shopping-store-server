@@ -30,4 +30,12 @@ module.exports = {
         let sql = `select * from product where category_id= ? limit ${index}, ${pageSize}`
         return await query(sql, categoryID)
     },
+    getProductDetailsByProductId: async (productId) => {
+        let sql = 'select * from product where product_id= ?'
+        return await query(sql, productId)
+    },
+    getProductDetailPicturesByProductId: async (productId) => {
+        let sql = 'select * from product_picture where product_id= ?'
+        return await query(sql, productId)
+    }
 }
