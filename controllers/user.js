@@ -1,8 +1,12 @@
 const usermodel = require('../models/user')
+const usermiddleware = require('../middlewares/user')
 module.exports = {
     checkIsExistUser: async ctx => {
         try {
             let { userName } = ctx.request.body
+            if (!usermiddleware.checkUserName(ctx, userName)) {
+                return;
+            }
             let userInfo = await usermodel.checkIsExistUserByUserName(userName)
             console.log('userinfo.length :', userInfo.length);
             switch (userInfo.length) {
@@ -26,6 +30,9 @@ module.exports = {
     userRegister: async ctx => {
         try {
             let { userName, password } = ctx.request.body
+            if (!usermiddleware.checkUserInfo(ctx, userName, password)) {
+                return;
+            }
             let userInfo = await usermodel.checkIsExistUserByUserName(userName)
             if (userInfo.length !== 0) {
                 ctx.body = {
@@ -48,9 +55,14 @@ module.exports = {
     userLogin: async ctx => {
         try {
             let { userName, password } = ctx.request.body
+            if (!usermiddleware.checkUserInfo(ctx, userName, password)) {
+                return;
+            }
             let loginInfo = await usermodel.userLoginByUserInfo(userName, password)
-            let user = { user_id: loginInfo[0].user_id, userName: loginInfo[0].userName }
-            console.log('user :', user);
+            if (loginInfo.length > 0) {
+                let user = { user_id: loginInfo[0].user_id, userName: loginInfo[0].userName }
+                console.log('user :', user);
+            }
             switch (loginInfo.length) {
                 case 0:
                     ctx.body = {
