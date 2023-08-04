@@ -11,5 +11,9 @@ module.exports = {
     userLoginByUserInfo: async (userName, password) => {
         let sql = 'select * from users where userName=? AND password= ?'
         return await query(sql, [userName, password])
+    },
+    getUserById: async (userId) => {
+        let sql = 'select * from users where user_id= ?'
+        return await query(sql, [userId])
     }
 }

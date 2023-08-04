@@ -50,10 +50,6 @@ module.exports = {
             return;
         }
         let loginInfo = await usermodel.userLoginByUserInfo(userName, password)
-        if (loginInfo.length > 0) {
-            let user = { user_id: loginInfo[0].user_id, userName: loginInfo[0].userName }
-            console.log('user :', user);
-        }
         switch (loginInfo.length) {
             case 0:
                 ctx.body = {
@@ -62,12 +58,24 @@ module.exports = {
                 }
                 break;
             case 1:
+                let user = { user_id: loginInfo[0].user_id, userName: loginInfo[0].userName }
+                console.log('user :', user);
                 ctx.body = {
                     code: '001',
                     user,
                     msg: '登录成功'
                 }
+                ctx.cookies.set('user_id', user.user_id, {
+                    maxAge: 1000 * 60 * 60 * 30,
+                    httpOnly: false
+                })
                 break;
+        }
+    },
+    userInfo: async ctx => {
+        console.log('ctx user :', ctx.user);
+        ctx.body = {
+            user: ctx.user
         }
     }
 }
