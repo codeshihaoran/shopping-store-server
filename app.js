@@ -8,6 +8,10 @@ const router = require('./routers/index')
 
 const { Port } = require('./config')
 
+// 捕获错误
+const error = require('./middlewares/error')
+app.use(error.reportErr)
+// post请求解析
 app.use(bodyParser())
 // 启动路由
 app
