@@ -1,6 +1,9 @@
 
 const Router = require('koa-router')
-const router = new Router()
+// prefix 全局配置接口路径前缀
+const router = new Router({
+    prefix: '/api'
+})
 
 const carouselRouter = require('./router/carousel')
 const productRouter = require('./router/product')

@@ -4,7 +4,7 @@
   "description": "about shopping-store-server",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "author": "codeshihaoran",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "koa-bodyparser": "^4.4.1",
     "koa-router": "^12.0.0",
     "koa-session": "^6.4.0",
+    "koa-static": "^5.0.0",
     "mysql": "^2.18.1"
   }
 }

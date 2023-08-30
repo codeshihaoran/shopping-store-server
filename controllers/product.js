@@ -50,25 +50,25 @@ module.exports = {
     getProducts: async ctx => {
         let { categoryID, currentPage, pageSize } = ctx.request.body
         let index = (currentPage - 1) * pageSize;
-        let Product = await productmodel.getProductsBycategoryId(categoryID, index, pageSize)
+        let products = await productmodel.getProductsBycategoryId(categoryID, index, pageSize)
         let total = (await productmodel.getPromoProductsByCategoryId(categoryID)).length
         ctx.body = {
             code: '001',
-            Product,
+            products,
             total
         }
     },
     getProductDetails: async ctx => {
-        let { productId } = ctx.request.body
-        let Product = await productmodel.getProductDetailsByProductId(productId)
+        let { productID } = ctx.request.body
+        let Product = await productmodel.getProductDetailsByProductId(productID)
         ctx.body = {
             code: '001',
             Product
         }
     },
     getProductDetailsPicture: async ctx => {
-        let { productId } = ctx.request.body
-        let ProductPicture = await productmodel.getProductDetailPicturesByProductId(productId)
+        let { productID } = ctx.request.body
+        let ProductPicture = await productmodel.getProductDetailPicturesByProductId(productID)
         ctx.body = {
             code: '001',
             ProductPicture
