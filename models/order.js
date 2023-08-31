@@ -1,7 +1,9 @@
 const query = require('../utils/database')
 module.exports = {
     addOrderInfoByProductInfo: async (length, orderInfo) => {
-        let sql = 'insert into orders values(null,?,?,?,?,?,?)'
+        let sql = 'insert into orders values(null,?,?,?,?,?,?)';
+        console.log('orderInfoLength：', length);
+        console.log('orderInfo：', orderInfo);
         for (let i = 0; i < length - 1; i++) {
             sql += ",(null,?,?,?,?,?,?)"
         }

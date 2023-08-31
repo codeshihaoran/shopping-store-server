@@ -2,14 +2,15 @@ const ordermodel = require('../models/order')
 const shoppingcartmodel = require('../models/shoppingcart')
 module.exports = {
     addProductsToOrder: async ctx => {
-        let { user_id, products } = ctx.body.request
+        let { user_id, products } = ctx.request.body
         const orderTime = new Date().getTime();
         const orderID = +("" + user_id + orderTime);
         let orderInfo = []
         for (let i = 0; i < products.length; i++) {
             const item = products[i]
+            // 方案1
             let orderProductInfo = [orderID, user_id, item.productID, item.num, item.price, orderTime]
-            orderInfo.push(orderProductInfo)
+            orderInfo.push(...orderProductInfo)
         }
         let addOrderInfo = await ordermodel.addOrderInfoByProductInfo(products.length, orderInfo)
         if (addOrderInfo.affectedRows == products.length) {
