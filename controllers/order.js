@@ -50,9 +50,10 @@ module.exports = {
                 const orderInfo = getOrderInfo[j]
                 if (orderId.order_id == orderInfo.order_id) {
                     const orderProductInfo = await ordermodel.getOrderProductInfoByProductId(orderInfo.product_id)
-                    orderInfo.product_name = orderProductInfo.product_name
-                    orderInfo.product_picture = orderProductInfo.product_picture
+                    orderInfo.product_name = orderProductInfo[0].product_name
+                    orderInfo.product_picture = orderProductInfo[0].product_picture
                     itemOrder.push(orderInfo)
+
                 }
             }
             allOrderList.push(itemOrder)
