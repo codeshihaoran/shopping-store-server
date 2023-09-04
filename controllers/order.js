@@ -2,7 +2,8 @@ const ordermodel = require('../models/order')
 const shoppingcartmodel = require('../models/shoppingcart')
 module.exports = {
     addProductsToOrder: async ctx => {
-        let { user_id, products } = ctx.request.body
+        let { products } = ctx.request.body
+        let user_id = ctx.user
         const orderTime = new Date().getTime();
         const orderID = +("" + user_id + orderTime);
         let orderInfo = []
@@ -32,7 +33,7 @@ module.exports = {
 
     },
     getOrderInfo: async ctx => {
-        let { user_id } = ctx.request.body
+        let user_id = ctx.user
         let allOrderId = await ordermodel.getAllOrderId(user_id)
         if (allOrderId.length === 0) {
             ctx.body = {

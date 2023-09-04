@@ -1,7 +1,8 @@
 const collectmodel = require('../models/collect')
 module.exports = {
     addCollectProducts: async ctx => {
-        let { user_id, product_id } = ctx.request.body
+        let { product_id } = ctx.request.body
+        let user_id = ctx.user
         let duplicateProduct = await collectmodel.findProductById(user_id, product_id)
         if (duplicateProduct.length > 0) {
             ctx.body = {
@@ -19,7 +20,7 @@ module.exports = {
         }
     },
     getCollectProducts: async ctx => {
-        let { user_id } = ctx.request.body
+        let user_id = ctx.user
         let product = await collectmodel.getProductIdByUserId(user_id)
         if (product.length == 0) {
             ctx.body = {

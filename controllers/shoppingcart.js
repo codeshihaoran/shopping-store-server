@@ -22,7 +22,8 @@ let shoppingCart = {
 }
 module.exports = {
     addProductToshoppingCart: async ctx => {
-        let { user_id, product_id } = ctx.request.body
+        let { product_id } = ctx.request.body
+        let user_id = ctx.user
         let shoppingProducts = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
         if (shoppingProducts.length > 0) {
             const productNum = shoppingProducts[0].num + 1
@@ -47,7 +48,7 @@ module.exports = {
         }
     },
     getShoppingCartProducts: async ctx => {
-        let { user_id } = ctx.request.body
+        let user_id = ctx.user
         let shoppingCartInfo = await shoppingcartmodel.getshoppingCartInfoByUserId(user_id)
         let ProductInfo = await shoppingCart.shoppingCartProductInfo(shoppingCartInfo)
         ctx.body = {
@@ -56,7 +57,8 @@ module.exports = {
         }
     },
     deleteShopingProducts: async ctx => {
-        let { user_id, product_id } = ctx.request.body
+        let { product_id } = ctx.request.body
+        let user_id = ctx.user
         let isExistProduct = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
         if (isExistProduct.length === 0) {
             ctx.body = {
