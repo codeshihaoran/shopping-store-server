@@ -45,11 +45,11 @@ CREATE TABLE `product_picture` (
 -- 用户
 CREATE TABLE `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-  `userName` char(40) NOT NULL,
-  `password` char(40) NOT NULL,
-  `userPhoneNumber` char(11) DEFAULT NULL,
+  `user_name` char(40) NOT NULL,
+  `user_password` char(40) NOT NULL,
+  `user_phone` char(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `userName` (`userName`)
+  UNIQUE KEY `user_name` (`user_name`)
 ) COMMENT='用户'
 
 -- 我的收藏列表

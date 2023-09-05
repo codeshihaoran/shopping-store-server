@@ -1,7 +1,7 @@
 const query = require('../utils/database')
 module.exports = {
     checkIsExistUserByUserName: async (userName) => {
-        let sql = 'select * from users where userName= ?'
+        let sql = 'select * from users where user_name= ?'
         return await query(sql, [userName])
     },
     userRegisterByUserInfo: async (userName, password) => {
@@ -9,7 +9,7 @@ module.exports = {
         return await query(sql, [userName, password])
     },
     userLoginByUserInfo: async (userName, password) => {
-        let sql = 'select * from users where userName=? AND password= ?'
+        let sql = 'select * from users where user_name=? AND user_password= ?'
         return await query(sql, [userName, password])
     },
     getUserById: async (userId) => {
