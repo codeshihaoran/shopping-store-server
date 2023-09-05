@@ -2,11 +2,11 @@ const usermodel = require('../models/user')
 const usermiddleware = require('../middlewares/user')
 module.exports = {
     checkIsExistUser: async ctx => {
-        let { userName } = ctx.request.body
+        const { userName } = ctx.request.body
         if (!usermiddleware.checkUserName(ctx, userName)) {
             return;
         }
-        let userInfo = await usermodel.checkIsExistUserByUserName(userName)
+        const userInfo = await usermodel.checkIsExistUserByUserName(userName)
         console.log('userinfo.length :', userInfo.length);
         switch (userInfo.length) {
             case 0:
@@ -24,18 +24,18 @@ module.exports = {
         }
     },
     userRegister: async ctx => {
-        let { userName, password } = ctx.request.body
+        const { userName, password } = ctx.request.body
         if (!usermiddleware.checkUserInfo(ctx, userName, password)) {
             return;
         }
-        let userInfo = await usermodel.checkIsExistUserByUserName(userName)
+        const userInfo = await usermodel.checkIsExistUserByUserName(userName)
         if (userInfo.length !== 0) {
             ctx.body = {
                 code: '004',
                 msg: '用户名已经存在，不能注册'
             }
         }
-        let registerInfo = await usermodel.userRegisterByUserInfo(userName, password)
+        const registerInfo = await usermodel.userRegisterByUserInfo(userName, password)
         console.log('registerInfo :', registerInfo);
         if (registerInfo.affectedRows === 1) {
             ctx.body = {
@@ -45,11 +45,11 @@ module.exports = {
         }
     },
     userLogin: async ctx => {
-        let { userName, password } = ctx.request.body
+        const { userName, password } = ctx.request.body
         if (!usermiddleware.checkUserInfo(ctx, userName, password)) {
             return;
         }
-        let loginInfo = await usermodel.userLoginByUserInfo(userName, password)
+        const loginInfo = await usermodel.userLoginByUserInfo(userName, password)
         switch (loginInfo.length) {
             case 0:
                 ctx.body = {

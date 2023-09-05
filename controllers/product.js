@@ -3,15 +3,15 @@ const productmodel = require('../models/product')
 module.exports = {
     // 获取热门商品
     getHotProducts: async ctx => {
-        let { categoryName } = ctx.request.body
-        const categoryID = []
+        const { categoryName } = ctx.request.body
+        const categoryId = []
         for (let i = 0; i < categoryName.length; i++) {
             // 根据商品分类名称获取分类id
             const category_id = await productmodel.getCategoryIdByName(categoryName[i]);
-            categoryID.push(category_id);
+            categoryId.push(category_id);
         }
-        console.log('getHotProducts categoryID :', categoryID);
-        let products = await productmodel.getHotProductsByCategoryId(categoryID)
+        console.log('getHotProducts categoryID :', categoryId);
+        const products = await productmodel.getHotProductsByCategoryId(categoryId)
         ctx.body = {
             code: '001',
             products
@@ -19,10 +19,10 @@ module.exports = {
     },
     // 获取推销商品
     getPromoProducts: async ctx => {
-        let { categoryName } = ctx.request.body
-        let categoryId = await productmodel.getCategoryIdByName(categoryName)
+        const { categoryName } = ctx.request.body
+        const categoryId = await productmodel.getCategoryIdByName(categoryName)
         console.log('getPromoProducts categoryId :', categoryId);
-        products = await productmodel.getPromoProductsByCategoryId(categoryId)
+        const products = await productmodel.getPromoProductsByCategoryId(categoryId)
         ctx.body = {
             code: '001',
             products
@@ -30,10 +30,10 @@ module.exports = {
     },
     // 获取全部商品
     getAllproduct: async ctx => {
-        let { categoryID, currentPage, pageSize } = ctx.request.body
-        let index = (currentPage - 1) * pageSize;
-        let products = await productmodel.getAllproductsByCategoryId(categoryID, index, pageSize);
-        let total = 35
+        const { categoryId, currentPage, pageSize } = ctx.request.body
+        const index = (currentPage - 1) * pageSize;
+        const products = await productmodel.getAllproductsByCategoryId(categoryId, index, pageSize);
+        const total = (await productmodel.getAllProductsTotals()).length
         ctx.body = {
             code: '001',
             products,
@@ -41,17 +41,17 @@ module.exports = {
         }
     },
     getProductCategory: async ctx => {
-        let category = await productmodel.getCategory()
+        const category = await productmodel.getCategory()
         ctx.body = {
             code: '001',
             category
         }
     },
     getProducts: async ctx => {
-        let { categoryID, currentPage, pageSize } = ctx.request.body
-        let index = (currentPage - 1) * pageSize;
-        let products = await productmodel.getProductsBycategoryId(categoryID, index, pageSize)
-        let total = (await productmodel.getPromoProductsByCategoryId(categoryID)).length
+        const { categoryId, currentPage, pageSize } = ctx.request.body
+        const index = (currentPage - 1) * pageSize;
+        const products = await productmodel.getProductsBycategoryId(categoryId, index, pageSize)
+        const total = (await productmodel.getPromoProductsByCategoryId(categoryId)).length
         ctx.body = {
             code: '001',
             products,
@@ -59,19 +59,19 @@ module.exports = {
         }
     },
     getProductDetails: async ctx => {
-        let { productID } = ctx.request.body
-        let Product = await productmodel.getProductDetailsByProductId(productID)
+        const { productId } = ctx.request.body
+        const product = await productmodel.getProductDetailsByProductId(productId)
         ctx.body = {
             code: '001',
-            Product
+            product
         }
     },
     getProductDetailsPicture: async ctx => {
-        let { productID } = ctx.request.body
-        let ProductPicture = await productmodel.getProductDetailPicturesByProductId(productID)
+        const { productId } = ctx.request.body
+        const productPicture = await productmodel.getProductDetailPicturesByProductId(productId)
         ctx.body = {
             code: '001',
-            ProductPicture
+            productPicture
         }
     }
 }
