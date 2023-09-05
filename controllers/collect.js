@@ -1,9 +1,9 @@
 const collectmodel = require('../models/collect')
 module.exports = {
     addCollectProducts: async ctx => {
-        let { product_id } = ctx.request.body
-        let user_id = ctx.user
-        let duplicateProduct = await collectmodel.findProductById(user_id, product_id)
+        const { product_id } = ctx.request.body
+        const user_id = ctx.user
+        const duplicateProduct = await collectmodel.findProductById(user_id, product_id)
         if (duplicateProduct.length > 0) {
             ctx.body = {
                 code: '003',
@@ -11,7 +11,7 @@ module.exports = {
             }
             return
         }
-        let addproduct = await collectmodel.addProductById(user_id, product_id)
+        const addproduct = await collectmodel.addProductById(user_id, product_id)
         if (addproduct.affectedRows === 1) {
             ctx.body = {
                 code: '001',
@@ -20,8 +20,8 @@ module.exports = {
         }
     },
     getCollectProducts: async ctx => {
-        let user_id = ctx.user
-        let product = await collectmodel.getProductIdByUserId(user_id)
+        const user_id = ctx.user
+        const product = await collectmodel.getProductIdByUserId(user_id)
         if (product.length == 0) {
             ctx.body = {
                 code: '002',
@@ -29,10 +29,10 @@ module.exports = {
             }
             return
         }
-        let collectList = []
+        const collectList = []
         for (let i = 0; i < product.length; i++) {
             const item = product[i].product_id
-            let products = await collectmodel.getProductsByProductId(item)
+            const products = await collectmodel.getProductsByProductId(item)
             collectList.push(products[0])
         }
         ctx.body = {

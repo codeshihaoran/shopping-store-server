@@ -1,7 +1,7 @@
 const shoppingcartmodel = require('../models/shoppingcart')
 let shoppingCart = {
     shoppingCartProductInfo: async (shoppingCartInfo) => {
-        let productInfoData = []
+        const productInfoData = []
         for (let i = 0; i < shoppingCartInfo.length; i++) {
             const item = shoppingCartInfo[i]
             const productsInfo = await shoppingcartmodel.getproductsInfoByProductId(item.product_id)
@@ -22,9 +22,9 @@ let shoppingCart = {
 }
 module.exports = {
     addProductToshoppingCart: async ctx => {
-        let { product_id } = ctx.request.body
-        let user_id = ctx.user
-        let shoppingProducts = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
+        const { product_id } = ctx.request.body
+        const user_id = ctx.user
+        const shoppingProducts = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
         if (shoppingProducts.length > 0) {
             const productNum = shoppingProducts[0].num + 1
             const newAddProductNum = await shoppingcartmodel.updateShoppingCartByProductNum(productNum, user_id, product_id)
@@ -36,10 +36,10 @@ module.exports = {
                 return
             }
         }
-        let addProductsToshoppingCart = await shoppingcartmodel.addshopingProductsById(user_id, product_id)
+        const addProductsToshoppingCart = await shoppingcartmodel.addshopingProductsById(user_id, product_id)
         if (addProductsToshoppingCart.affectedRows === 1) {
-            let findShoppingInfo = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
-            let addShoppingProductInfo = await shoppingCart.shoppingCartProductInfo(findShoppingInfo)
+            const findShoppingInfo = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
+            const addShoppingProductInfo = await shoppingCart.shoppingCartProductInfo(findShoppingInfo)
             ctx.body = {
                 code: '001',
                 msg: '添加购物车成功',
@@ -48,18 +48,18 @@ module.exports = {
         }
     },
     getShoppingCartProducts: async ctx => {
-        let user_id = ctx.user
-        let shoppingCartInfo = await shoppingcartmodel.getshoppingCartInfoByUserId(user_id)
-        let ProductInfo = await shoppingCart.shoppingCartProductInfo(shoppingCartInfo)
+        const user_id = ctx.user
+        const shoppingCartInfo = await shoppingcartmodel.getshoppingCartInfoByUserId(user_id)
+        const productInfo = await shoppingCart.shoppingCartProductInfo(shoppingCartInfo)
         ctx.body = {
             code: '001',
-            shoppingCartData: ProductInfo
+            shoppingCartData: productInfo
         }
     },
     deleteShopingProducts: async ctx => {
-        let { product_id } = ctx.request.body
-        let user_id = ctx.user
-        let isExistProduct = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
+        const { product_id } = ctx.request.body
+        const user_id = ctx.user
+        const isExistProduct = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
         if (isExistProduct.length === 0) {
             ctx.body = {
                 code: '002',
@@ -67,7 +67,7 @@ module.exports = {
             }
             return
         }
-        let deleteProduct = await shoppingcartmodel.deleteProductById(user_id, product_id)
+        const deleteProduct = await shoppingcartmodel.deleteProductById(user_id, product_id)
         if (deleteProduct.affectedRows === 1) {
             ctx.body = {
                 code: '001',

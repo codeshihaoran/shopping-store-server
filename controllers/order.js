@@ -2,15 +2,15 @@ const ordermodel = require('../models/order')
 const shoppingcartmodel = require('../models/shoppingcart')
 module.exports = {
     addProductsToOrder: async ctx => {
-        let { products } = ctx.request.body
-        let user_id = ctx.user
+        const { products } = ctx.request.body
+        const user_id = ctx.user
         const orderTime = new Date().getTime();
-        const orderID = +("" + user_id + orderTime);
-        let orderInfo = []
+        const orderId = +("" + user_id + orderTime);
+        const orderInfo = []
         for (let i = 0; i < products.length; i++) {
             const item = products[i]
             // 方案1
-            let orderProductInfo = [orderID, user_id, item.productID, item.num, item.price, orderTime]
+            const orderProductInfo = [orderId, user_id, item.productID, item.num, item.price, orderTime]
             orderInfo.push(...orderProductInfo)
         }
         let addOrderInfo = await ordermodel.addOrderInfoByProductInfo(products.length, orderInfo)
@@ -33,8 +33,8 @@ module.exports = {
 
     },
     getOrderInfo: async ctx => {
-        let user_id = ctx.user
-        let allOrderId = await ordermodel.getAllOrderId(user_id)
+        const user_id = ctx.user
+        const allOrderId = await ordermodel.getAllOrderId(user_id)
         if (allOrderId.length === 0) {
             ctx.body = {
                 code: '002',
@@ -43,7 +43,7 @@ module.exports = {
             return
         }
         const getOrderInfo = await ordermodel.getOrderInfoByUserId(user_id)
-        let allOrderList = []
+        const allOrderList = []
         for (let i = 0; i < allOrderId.length; i++) {
             const orderId = allOrderId[i]
             let itemOrder = []

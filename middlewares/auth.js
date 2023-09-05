@@ -1,7 +1,7 @@
 const usermodel = require('../models/user')
 module.exports = {
     checkIsLogin: async (ctx, next) => {
-        let userId = ctx.cookies.get('user_id')
+        const userId = ctx.cookies.get('user_id')
         const response = {
             code: '004',
             msg: '未登录，请先登录'
@@ -11,7 +11,7 @@ module.exports = {
             ctx.body = response
             return;
         }
-        let users = await usermodel.getUserById(userId)
+        const users = await usermodel.getUserById(userId)
         const user = users[0].user_id
         console.log('user user_id', user);
         if (!user) {

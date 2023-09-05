@@ -37,5 +37,9 @@ module.exports = {
     getProductDetailPicturesByProductId: async (productId) => {
         let sql = 'select * from product_picture where product_id= ?'
         return await query(sql, productId)
+    },
+    getAllProductsTotals: async () => {
+        let sql = 'select * from product'
+        return await query(sql)
     }
 }
