@@ -8,6 +8,7 @@ module.exports = {
             }
             return false;
         }
+        return true
     },
     checkUserInfo: (ctx, userName, password) => {
         if (userName.length === 0 || password.length === 0) {
@@ -17,5 +18,6 @@ module.exports = {
             }
             return false;
         }
+        return true
     }
 }
