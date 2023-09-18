@@ -3,7 +3,7 @@ const mysql = require('mysql')
 const { dbConfig } = require('../config')
 // 创建mysql的连接
 const pool = mysql.createPool(dbConfig)
-console.log(dbConfig);
+console.log("数据库连接配置：", dbConfig);
 // 对数据增删改查封装为一个函数使用
 
 const query = (sql, values) => {
