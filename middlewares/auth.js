@@ -12,8 +12,7 @@ module.exports = {
             return;
         }
         const users = await usermodel.getUserById(userId)
-        const user = users[0].user_id
-        console.log('user user_id', user);
+        const user = users[0]
         if (!user) {
             ctx.body = response
         } else {

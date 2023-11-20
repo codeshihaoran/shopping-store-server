@@ -41,5 +41,9 @@ module.exports = {
     getAllProductsTotals: async () => {
         let sql = 'select * from product'
         return await query(sql)
+    },
+    deleteProductByProductId: async (productId) => {
+        let sql = 'delete from product where product_id=?'
+        return await query(sql, productId)
     }
 }

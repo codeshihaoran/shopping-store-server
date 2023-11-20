@@ -73,5 +73,17 @@ module.exports = {
             code: '001',
             productPicture
         }
+    },
+
+    // admin-controller
+    deleteProduct: async ctx => {
+        const { productId } = ctx.request.body
+        const deleteInfo = await productmodel.deleteProductByProductId(productId)
+        if (deleteInfo.affectedRows === 1) {
+            ctx.body = {
+                code: '001',
+                message: '您已删除成功'
+            }
+        }
     }
 }
