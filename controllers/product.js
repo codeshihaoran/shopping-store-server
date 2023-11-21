@@ -84,6 +84,32 @@ module.exports = {
                 code: '001',
                 message: '您已删除成功'
             }
+        } else {
+            ctx.body = {
+                code: '004',
+                message: '未找到匹配记录或更新没有任何影响'
+            }
+            console.log('未找到匹配记录或更新没有任何影响');
+        }
+    },
+    reviseProduct: async ctx => {
+        const { productId, productInfo } = ctx.request.body
+        const product_name = productInfo.input1
+        const product_price = productInfo.input2
+        const product_num = productInfo.input3
+        const product_selling_price = productInfo.input4
+        const reviseInfo = await productmodel.reviseProductByProductId(product_name, product_price, product_num, product_selling_price, productId)
+        if (reviseInfo.affectedRows > 0) {
+            ctx.body = {
+                code: '001',
+                message: '您已修改成功'
+            }
+        } else {
+            ctx.body = {
+                code: '004',
+                message: '未找到匹配记录或更新没有任何影响'
+            }
+            console.log('未找到匹配记录或更新没有任何影响');
         }
     }
 }

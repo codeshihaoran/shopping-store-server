@@ -13,5 +13,6 @@ productRouter.post('/product/detailsPicture/get', productController.getProductDe
 
 // admin-api
 productRouter.post('/product/delete', productController.deleteProduct)
+productRouter.post('/product/prodctInfo/revise', productController.reviseProduct)
 
 module.exports = productRouter

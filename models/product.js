@@ -45,5 +45,9 @@ module.exports = {
     deleteProductByProductId: async (productId) => {
         let sql = 'delete from product where product_id=?'
         return await query(sql, productId)
+    },
+    reviseProductByProductId: async (product_name, product_price, product_num, product_selling_price, productId) => {
+        let sql = 'update product set product_name=?,product_price=?,product_num=?,product_selling_price=? where product_id=?'
+        return await query(sql, [product_name, product_price, product_num, product_selling_price, productId,])
     }
 }
