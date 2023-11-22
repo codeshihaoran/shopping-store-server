@@ -111,5 +111,17 @@ module.exports = {
             }
             console.log('未找到匹配记录或更新没有任何影响');
         }
+    },
+    addProductImage: async ctx => {
+        const { path } = ctx.request.file
+        console.log("file path: ", path);
+        if (path) {
+            ctx.body = {
+                code: '001',
+                message: '您已上传成功',
+                path
+            }
+        }
+
     }
 }
