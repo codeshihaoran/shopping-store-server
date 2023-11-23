@@ -31,6 +31,7 @@ productRouter.post('/product/detailsPicture/get', productController.getProductDe
 // admin-api
 productRouter.post('/product/delete', productController.deleteProduct)
 productRouter.post('/product/prodctInfo/revise', productController.reviseProduct)
+productRouter.post('/product/add', productController.addProduct)
 // upload.single()表示只处理单个文件上传，且字段名应与客户端发送的字段名匹配
 productRouter.post('/product/image/add', upload.single('file'), productController.addProductImage)
 module.exports = productRouter

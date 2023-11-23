@@ -49,5 +49,9 @@ module.exports = {
     reviseProductByProductId: async (product_name, product_price, product_num, product_selling_price, productId) => {
         let sql = 'update product set product_name=?,product_price=?,product_num=?,product_selling_price=? where product_id=?'
         return await query(sql, [product_name, product_price, product_num, product_selling_price, productId,])
+    },
+    addProductByProductInfo: async (productId, productName, productCateId, productTitle, productIntro, imgPath, productPrice, productSellPrice, productNum, productSale) => {
+        let sql = 'insert into product values(?,?,?,?,?,?,?,?,?,?)'
+        return await query(sql, [productId, productName, productCateId, productTitle, productIntro, imgPath, productPrice, productSellPrice, productNum, productSale])
     }
 }

@@ -112,6 +112,30 @@ module.exports = {
             console.log('未找到匹配记录或更新没有任何影响');
         }
     },
+    addProduct: async ctx => {
+        const { productInfo, imgPath } = ctx.request.body
+        const productId = productInfo.inputProductId
+        const productName = productInfo.inputProductName
+        const productCateId = productInfo.inputProductCateId
+        const productTitle = productInfo.inputProductTitle
+        const productIntro = productInfo.inputProductIntro
+        const productPrice = productInfo.inputProductPrice
+        const productSellPrice = productInfo.inputProductSellingPrice
+        const productNum = productInfo.inputProductNum
+        const productSale = productInfo.inputProductSale
+        const addProductInfo = await productmodel.addProductByProductInfo(productId, productName, productCateId, productTitle, productIntro, imgPath, productPrice, productSellPrice, productNum, productSale)
+        if (addProductInfo.affectedRows > 0) {
+            ctx.body = {
+                code: '001',
+                message: '您已添加成功'
+            }
+        } else {
+            ctx.body = {
+                code: '004',
+                message: '未找到匹配记录或更新没有任何影响'
+            }
+        }
+    },
     addProductImage: async ctx => {
         const { path } = ctx.request.file
         console.log("file path: ", path);
