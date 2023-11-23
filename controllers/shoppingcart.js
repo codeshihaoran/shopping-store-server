@@ -23,7 +23,7 @@ let shoppingCart = {
 module.exports = {
     addProductToshoppingCart: async ctx => {
         const { product_id } = ctx.request.body
-        const user_id = ctx.user
+        const user_id = ctx.user.user_id
         const shoppingProducts = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
         if (shoppingProducts.length > 0) {
             const productNum = shoppingProducts[0].num + 1
@@ -48,9 +48,12 @@ module.exports = {
         }
     },
     getShoppingCartProducts: async ctx => {
-        const user_id = ctx.user
+        const user_id = ctx.user.user_id
+        console.log('789456123', user_id);
         const shoppingCartInfo = await shoppingcartmodel.getshoppingCartInfoByUserId(user_id)
+        console.log('.0000.0..........', shoppingCartInfo);
         const productInfo = await shoppingCart.shoppingCartProductInfo(shoppingCartInfo)
+        console.log('000000000022', productInfo);
         ctx.body = {
             code: '001',
             shoppingCartData: productInfo
