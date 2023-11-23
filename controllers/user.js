@@ -77,5 +77,14 @@ module.exports = {
         ctx.body = {
             user: ctx.user
         }
+    },
+
+    // admin 
+    getAllUserInfo: async ctx => {
+        const allUserInfo = await usermodel.getUserInfo()
+        ctx.body = {
+            code: '001',
+            allUserInfo
+        }
     }
 }

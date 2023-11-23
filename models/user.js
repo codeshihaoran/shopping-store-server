@@ -15,5 +15,9 @@ module.exports = {
     getUserById: async (userId) => {
         let sql = 'select * from users where user_id= ?'
         return await query(sql, [userId])
+    },
+    getUserInfo: async () => {
+        let sql = 'select * from users'
+        return await query(sql)
     }
 }
