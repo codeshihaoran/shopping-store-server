@@ -61,7 +61,7 @@ module.exports = {
     },
     deleteShopingProducts: async ctx => {
         const { product_id } = ctx.request.body
-        const user_id = ctx.user
+        const user_id = ctx.user.user_id
         const isExistProduct = await shoppingcartmodel.findShoppingProductsById(user_id, product_id)
         if (isExistProduct.length === 0) {
             ctx.body = {

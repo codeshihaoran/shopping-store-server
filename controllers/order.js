@@ -8,13 +8,20 @@ module.exports = {
         const orderId = +("" + user_id + orderTime);
         const orderInfo = []
         for (let i = 0; i < products.length; i++) {
-            const item = products[i]
-            // 方案1
-            const orderProductInfo = [orderId, user_id, item.productID, item.num, item.price, orderTime]
-            orderInfo.push(...orderProductInfo)
+            const item = products[i];
+            const orderProductInfo = {
+                orderId,
+                user_id,
+                productID: item.productID,
+                num: item.num,
+                price: item.price,
+                orderTime,
+            };
+            orderInfo.push(orderProductInfo);
         }
-        let addOrderInfo = await ordermodel.addOrderInfoByProductInfo(products.length, orderInfo)
-        if (addOrderInfo.affectedRows == products.length) {
+        let addOrderInfo = await ordermodel.addOrderInfoByProductInfo(orderInfo)
+        console.log('xzczxczxczxczc', addOrderInfo.length);
+        if (addOrderInfo.length == products.length) {
             for (let i = 0; i < products.length; i++) {
                 // 生成订单后要在数据库中删除购物车
                 const item = products[i]
@@ -35,6 +42,7 @@ module.exports = {
     getOrderInfo: async ctx => {
         const user_id = ctx.user.user_id
         const allOrderId = await ordermodel.getAllOrderId(user_id)
+        console.log('AllOrderId: ', allOrderId);
         if (allOrderId.length === 0) {
             ctx.body = {
                 code: '002',
