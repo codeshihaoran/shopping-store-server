@@ -1,5 +1,6 @@
 const ordermodel = require('../models/order')
 const shoppingcartmodel = require('../models/shoppingcart')
+const usermodel = require('../models/user')
 module.exports = {
     addProductsToOrder: async ctx => {
         const { products } = ctx.request.body
@@ -70,6 +71,36 @@ module.exports = {
         ctx.body = {
             code: '001',
             orders: allOrderList
+        }
+    },
+    getAllOrderInfo: async ctx => {
+        const userInfo = await usermodel.getUserInfo()
+        let allOrderInfo = []
+        for (let i = 0; i < userInfo.length; i++) {
+            const user_id = userInfo[i].user_id
+            const orderInfo = await ordermodel.getOrderInfoByUserId(user_id)
+            allOrderInfo.push(orderInfo)
+        }
+        const allOrder = allOrderInfo.flat()
+        for (let i = 0; i < allOrder.length; i++) {
+            const item = allOrder[i]
+            const productInfo = await ordermodel.getOrderProductInfoByProductId(item.product_id)
+            const product_title = productInfo[0].product_title
+            item.product_title = product_title
+            const orderTime = new Date(item.order_time)
+            const year = orderTime.getFullYear()
+            const month = orderTime.getMonth()
+            const day = orderTime.getDate()
+            const hour = orderTime.getHours()
+            const minutes = orderTime.getMinutes()
+            const second = orderTime.getSeconds()
+            const nowTime = `${year}-${month}-${day} ${hour}:${minutes}:${second}`
+            item.order_time = nowTime
+            console.log('xxxxxxxxsadasdasd', item);
+        }
+        ctx.body = {
+            code: '001',
+            data: allOrder
         }
     }
 }
