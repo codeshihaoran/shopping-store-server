@@ -29,5 +29,26 @@ module.exports = {
     getOrderProductInfoByProductId: async (product_id) => {
         let sql = 'select * from product where product_id=?'
         return await query(sql, [product_id])
+    },
+    searchOrderInfoByOrderId: async (data) => {
+        let sql = 'select * from orders where '
+        const values = []
+        if (data.orderId) {
+            sql += 'id =?'
+            values.push(data.orderId)
+        }
+        if (data.receiver) {
+            sql += 'AND user_phone=? '
+            values.push(data.receiver)
+        }
+        if (data.payStatus) {
+            sql += 'AND pay_status=?'
+            values.push(data.payStatus)
+        }
+        if (data.orderTime) {
+            sql += 'AND order_time=?'
+        }
+        console.log(values);
+        return await query(sql, values)
     }
 }

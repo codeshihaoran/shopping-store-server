@@ -100,11 +100,20 @@ module.exports = {
             const second = orderTime.getSeconds()
             const nowTime = `${year}-${month}-${day} ${hour}:${minutes}:${second}`
             item.order_time = nowTime
-            console.log('xxxxxxxxsadasdasd', item);
         }
         ctx.body = {
             code: '001',
             data: allOrder
+        }
+    },
+    searchOrderId: async ctx => {
+        const data = ctx.request.body
+        console.log('request data：', data);
+        const searchOrderInfo = await ordermodel.searchOrderInfoByOrderId(data)
+        console.log('search orderInfo：', searchOrderInfo);
+        ctx.body = {
+            code: '001',
+            searchOrderInfo
         }
     }
 }
