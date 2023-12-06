@@ -3,7 +3,9 @@ const shoppingcartmodel = require('../models/shoppingcart')
 const usermodel = require('../models/user')
 module.exports = {
     addProductsToOrder: async ctx => {
-        const { products } = ctx.request.body
+        const { products, order_address } = ctx.request.body
+        console.log('订单地址：', order_address);
+        const order_phone = ctx.user.user_phone
         const user_id = ctx.user.user_id
         const orderTime = new Date().getTime();
         const orderId = +("" + user_id + orderTime);
@@ -17,11 +19,12 @@ module.exports = {
                 num: item.num,
                 price: item.price,
                 orderTime,
+                order_address,
+                order_phone
             };
             orderInfo.push(orderProductInfo);
         }
         let addOrderInfo = await ordermodel.addOrderInfoByProductInfo(orderInfo)
-        console.log('xzczxczxczxczc', addOrderInfo.length);
         if (addOrderInfo.length == products.length) {
             for (let i = 0; i < products.length; i++) {
                 // 生成订单后要在数据库中删除购物车

@@ -58,7 +58,7 @@ module.exports = {
                 }
                 break;
             case 1:
-                let user = { user_id: loginInfo[0].user_id, userName: loginInfo[0].user_name }
+                let user = { user_id: loginInfo[0].user_id, userName: loginInfo[0].user_name, user_phone: loginInfo[0].user_phone }
                 console.log('user :', user);
                 ctx.body = {
                     code: '001',
