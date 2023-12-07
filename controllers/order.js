@@ -84,7 +84,6 @@ module.exports = {
             const orderInfo = await ordermodel.getOrderInfoByUserId(user_id)
             for (let j = 0; j < orderInfo.length; j++) {
                 orderInfo[j].user_name = userInfo[i].user_name
-                orderInfo[j].user_phone = userInfo[i].user_phone
             }
             allOrderInfo.push(orderInfo)
         }

@@ -36,19 +36,36 @@ module.exports = {
         let sql = 'select * from orders where '
         const values = []
         if (data.orderId) {
-            sql += 'id =?'
+            sql += 'order_id =?'
             values.push(data.orderId)
         }
         if (data.receiver) {
-            sql += 'AND user_phone=? '
-            values.push(data.receiver)
+            if (values.length > 0) {
+                sql += 'AND order_phone=? '
+                values.push(data.receiver)
+            } else {
+                sql += 'order_phone=?'
+                values.push(data.receiver)
+            }
         }
         if (data.payStatus) {
-            sql += 'AND pay_status=?'
-            values.push(data.payStatus)
+            if (values.length > 0) {
+                sql += 'AND pay_status=?'
+                values.push(data.payStatus)
+            } else {
+                sql += 'pay_status=?'
+                values.push(data.payStatus)
+            }
+
         }
         if (data.orderTime) {
-            sql += 'AND order_time=?'
+            if (values.length > 0) {
+                sql += 'AND order_time=?'
+                values.push(data.orderTime)
+            } else {
+                sql += 'order_time=?'
+                values.push(data.orderTime)
+            }
         }
         console.log(values);
         return await query(sql, values)
