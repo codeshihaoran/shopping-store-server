@@ -8,4 +8,5 @@ orderRouter.post('/user/order/get', auth.checkIsLogin, orderController.getOrderI
 // admin 
 orderRouter.post('/admin/order/get', orderController.getAllOrderInfo)
 orderRouter.post('/admin/order/search', orderController.searchOrderId)
+orderRouter.post('/admin/order/details/get', orderController.getOrderDetails)
 module.exports = orderRouter

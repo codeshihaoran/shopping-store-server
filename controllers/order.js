@@ -76,6 +76,8 @@ module.exports = {
             orders: allOrderList
         }
     },
+
+    // ADmin
     getAllOrderInfo: async ctx => {
         const userInfo = await usermodel.getUserInfo()
         let allOrderInfo = []
@@ -106,6 +108,25 @@ module.exports = {
         ctx.body = {
             code: '001',
             data: allOrder
+        }
+    },
+    getOrderDetails: async ctx => {
+        const { order_id } = ctx.request.body
+        const orderDetails = await ordermodel.getOderDetailsByOrderId(order_id)
+        const user = await usermodel.getUserById(orderDetails[0].user_id)
+        for (let i = 0; i < orderDetails.length; i++) {
+            let item = orderDetails[i]
+            item.user_name = user[0].user_name
+            const product = await ordermodel.getOrderProductInfoByProductId(item.product_id)
+            item.product_image = product[0].product_picture
+            item.product_name = product[0].product_name
+            item.product_title = product[0].product_title
+            item.product_intro = product[0].product_intro
+        }
+        console.log('xxxxxxxxxx', orderDetails);
+        ctx.body = {
+            code: '001',
+            orderDetails
         }
     },
     searchOrderId: async ctx => {
