@@ -3,7 +3,7 @@ const shoppingcartmodel = require('../models/shoppingcart')
 const usermodel = require('../models/user')
 module.exports = {
     addProductsToOrder: async ctx => {
-        const { products, order_address } = ctx.request.body
+        const { products, order_address, order_status } = ctx.request.body
         console.log('订单地址：', order_address);
         const order_phone = ctx.user.user_phone
         const user_id = ctx.user.user_id
@@ -20,7 +20,8 @@ module.exports = {
                 price: item.price,
                 orderTime,
                 order_address,
-                order_phone
+                order_phone,
+                order_status
             };
             orderInfo.push(orderProductInfo);
         }
