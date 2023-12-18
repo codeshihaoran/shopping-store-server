@@ -134,10 +134,36 @@ module.exports = {
         const data = ctx.request.body
         console.log('request data：', data);
         const searchOrderInfo = await ordermodel.searchOrderInfoByOrderId(data)
-        console.log('search orderInfo：', searchOrderInfo);
-        ctx.body = {
-            code: '001',
-            searchOrderInfo
+        if (searchOrderInfo.length > 0) {
+            for (let i = 0; i < searchOrderInfo.length; i++) {
+                const item = searchOrderInfo[i]
+                const user = await usermodel.getUserById(item.user_id)
+                const user_name = user[0].user_name
+                item.user_name = user_name
+                const productInfo = await ordermodel.getOrderProductInfoByProductId(item.product_id)
+                const product_title = productInfo[0].product_title
+                item.product_title = product_title
+                const orderTime = new Date(item.order_time)
+                const year = orderTime.getFullYear()
+                const month = orderTime.getMonth()
+                const day = orderTime.getDate()
+                const hour = orderTime.getHours()
+                const minutes = orderTime.getMinutes()
+                const second = orderTime.getSeconds()
+                const nowTime = `${year}-${month}-${day} ${hour}:${minutes}:${second}`
+                item.order_time = nowTime
+            }
+            console.log('search orderInfo：', searchOrderInfo);
+            ctx.body = {
+                code: '001',
+                searchOrderInfo
+            }
+        } else {
+            ctx.body = {
+                code: '004',
+                message: '并未查询到订单信息'
+            }
         }
+
     }
 }

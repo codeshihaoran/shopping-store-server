@@ -51,10 +51,10 @@ module.exports = {
         }
         if (data.payStatus) {
             if (values.length > 0) {
-                sql += 'AND pay_status=?'
+                sql += 'AND order_status=?'
                 values.push(data.payStatus)
             } else {
-                sql += 'pay_status=?'
+                sql += 'order_status=?'
                 values.push(data.payStatus)
             }
 
