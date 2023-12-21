@@ -165,5 +165,27 @@ module.exports = {
             }
         }
 
+    },
+    getOrderSale: async ctx => {
+        const orderList = await ordermodel.getAllorderList()
+        const user = await usermodel.getUserInfo()
+        const userSum = user.length
+        console.log('orderList：', orderList);
+        console.log('userLength：', userSum);
+        let saleSum = 0
+        let salePrice = 0
+        for (let i = 0; i < orderList.length; i++) {
+            const item = orderList[i]
+            saleSum += item.product_num
+            const price = item.product_num * item.product_price
+            salePrice += price
+        }
+
+        ctx.body = {
+            code: '001',
+            userSum,
+            saleSum,
+            salePrice
+        }
     }
 }

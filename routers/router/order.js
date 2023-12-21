@@ -9,4 +9,5 @@ orderRouter.post('/user/order/get', auth.checkIsLogin, orderController.getOrderI
 orderRouter.post('/admin/order/get', orderController.getAllOrderInfo)
 orderRouter.post('/admin/order/search', orderController.searchOrderId)
 orderRouter.post('/admin/order/details/get', orderController.getOrderDetails)
+orderRouter.post('/admin/order/sale/get', orderController.getOrderSale)
 module.exports = orderRouter

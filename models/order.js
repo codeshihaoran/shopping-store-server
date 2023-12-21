@@ -74,5 +74,9 @@ module.exports = {
     getOderDetailsByOrderId: async (order_id) => {
         let sql = 'select * from orders where order_id=?'
         return await query(sql, order_id)
+    },
+    getAllorderList: async () => {
+        let sql = 'select * from orders'
+        return await query(sql)
     }
 }
