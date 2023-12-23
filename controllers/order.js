@@ -77,7 +77,16 @@ module.exports = {
             orders: allOrderList
         }
     },
-
+    editOrderInfo: async ctx => {
+        const { order_id, order_status } = ctx.request.body
+        const updataOrderInfo = await ordermodel.updateOrderInfoByStatus(order_status, order_id)
+        if (updataOrderInfo.affectedRows > 0) {
+            ctx.body = {
+                code: '001',
+                msg: '已支付成功！感谢您的支持'
+            }
+        }
+    },
     // ADmin
     getAllOrderInfo: async ctx => {
         const userInfo = await usermodel.getUserInfo()

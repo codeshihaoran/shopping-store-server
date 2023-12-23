@@ -78,5 +78,9 @@ module.exports = {
     getAllorderList: async () => {
         let sql = 'select * from orders'
         return await query(sql)
+    },
+    updateOrderInfoByStatus: async (order_status, order_id) => {
+        let sql = 'update orders set order_status=? where order_id=?'
+        return await query(sql, [order_status, order_id])
     }
 }
