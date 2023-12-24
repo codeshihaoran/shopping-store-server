@@ -183,8 +183,14 @@ module.exports = {
         console.log('userLength：', userSum);
         let saleSum = 0
         let salePrice = 0
+        let pendingList = []
         for (let i = 0; i < orderList.length; i++) {
             const item = orderList[i]
+            if (item.order_status === 0) {
+                const user = await usermodel.getUserById(item.user_id)
+                const user_name = user[0].user_name
+                pendingList.push({ key: item.user_id, name: user_name, phone: item.order_phone, tag: '待支付', address: item.order_address })
+            }
             saleSum += item.product_num
             const price = item.product_num * item.product_price
             salePrice += price
@@ -194,7 +200,8 @@ module.exports = {
             code: '001',
             userSum,
             saleSum,
-            salePrice
+            salePrice,
+            pendingList
         }
     }
 }
